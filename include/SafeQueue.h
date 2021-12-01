@@ -8,13 +8,14 @@ class SafeQueue {
   std::mutex mutex;
 
  public:
-  SafeQueue() {}
-  ~SafeQueue() {}
   bool Empty() {
     std::unique_lock<std::mutex> lock(mutex);
     return queue.empty();
   }
-  int Size() {}
+  int Size() {
+    std::unique_lock<std::mutex> lock(mutex);
+    return queue.size();
+  }
   void EnQueue(T& t) {
     std::unique_lock<std::mutex> lock(mutex);
     queue.push(t);
